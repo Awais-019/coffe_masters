@@ -20,6 +20,33 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Greet extends StatefulWidget {
+  const Greet({super.key});
+
+  @override
+  State<Greet> createState() => _GreetState();
+}
+
+class _GreetState extends State<Greet> {
+  var name = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Hello, $name"),
+        TextField(
+          onChanged: (value) {
+            setState(() {
+              name = value;
+            });
+          },
+        ),
+      ],
+    );
+  }
+}
+
 class HelloWorld extends StatelessWidget {
   const HelloWorld({super.key});
 
@@ -46,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: const HelloWorld(),
+      body: const Greet(),
     );
   }
 }
