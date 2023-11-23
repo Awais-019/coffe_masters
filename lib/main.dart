@@ -1,3 +1,4 @@
+import 'package:coffe_masters/datamanager.dart';
 import 'package:coffe_masters/pages/offerspage.dart';
 import 'package:coffe_masters/pages/orderpage.dart';
 import 'package:coffe_masters/pages/menupage.dart';
@@ -32,6 +33,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int selectedIndex = 0;
+  DataManager dataManager = DataManager();
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +41,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
     switch (selectedIndex) {
       case 0:
-        currentWidgetPage = const MenuPage();
+        currentWidgetPage = MenuPage(dataManager: dataManager);
         break;
       case 1:
         currentWidgetPage = const OffersPage();
         break;
       case 2:
-        currentWidgetPage = const OrderPage();
+        currentWidgetPage = OrderPage(dataManager: dataManager);
         break;
     }
 
