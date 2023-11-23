@@ -1,3 +1,4 @@
+import 'package:coffe_masters/offerspage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,40 +21,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Greet extends StatefulWidget {
-  const Greet({super.key});
-
-  @override
-  State<Greet> createState() => _GreetState();
-}
-
-class _GreetState extends State<Greet> {
-  var name = "";
-
-  @override
-  Widget build(BuildContext context) {
-    var greetStyle = const TextStyle(fontSize: 24.0);
-    return Column(
-      children: [
-        Text(
-          "Hello, $name",
-          style: greetStyle,
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            onChanged: (value) {
-              setState(() {
-                name = value;
-              });
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -70,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Image.asset("images/logo.png"),
         centerTitle: true,
       ),
-      body: const Greet(),
+      body: const OffersPage(),
     );
   }
 }
