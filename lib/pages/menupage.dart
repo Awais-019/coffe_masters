@@ -8,11 +8,45 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProductItem(
-      product: Product(
-          id: 1, name: "Cappuccino", price: 3.5, image: "cappuccino.png"),
-      onAdd: () {},
-    );
+    return FutureBuilder(
+        future: dataManager.getMenu(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var categoires = snapshot.data as List<Category>;
+            return ListView.builder(
+              itemCount: categoires.length,
+              itemBuilder: ((context, index) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(categoires[index].name),
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const ClampingScrollPhysics(),
+                        itemCount: categoires[index].products.length,
+                        itemBuilder: (context, productIndex) {
+                          var product =
+                              categoires[index].products[productIndex];
+                          return ProductItem(
+                            product: product,
+                            onAdd: () {
+                              dataManager.cartAdd(product);
+                            },
+                          );
+                        })
+                  ],
+                );
+              }),
+            );
+          } else {
+            if (snapshot.hasError) {
+              return const Text("Error");
+            }
+            return const Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }
 
@@ -31,7 +65,7 @@ class ProductItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset("images/black_coffee.png"),
+            Image.network(product.imageUrl),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
